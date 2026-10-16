@@ -1,0 +1,24 @@
+--- 5 katli CV (ROC-AUC) ---
+Lojistik regresyon   ort=0.8449  sd=0.0135  (0.8245 - 0.8627)
+Rastgele orman       ort=0.8406  sd=0.0126  (0.8227 - 0.8553)
+Extra Trees          ort=0.8304  sd=0.0125  (0.8121 - 0.8446)
+
+--- Risk gruplari (test seti, 1409 musteri) ---
+        musteri  gercek_kayip  kayip_orani  ort_aylik  ort_kidem  aylik_gelir  risk_altinda_gelir
+grup                                                                                             
+Düşük       600            27         0.04      54.45      49.19     32670.35             1974.65
+Orta        320            83         0.26      61.53      25.55     19690.80             4882.45
+Yüksek      489           264         0.54      77.59      14.89     37940.05            20357.80
+
+Toplam test aylik geliri: 90301.20
+Kaybedilen musterilerin aylik geliri: 27214.90 (%30.1)
+
+--- Kumulatif kazanim (ilk %%N -> yakalanan kayip %%) ---
+  %0   -> %0.0
+  %20  -> %49.5
+  %40  -> %77.8
+  %60  -> %93.6
+  %80  -> %99.2
+  %100 -> %100.0
+
+yazildi: rapor_verisi.json

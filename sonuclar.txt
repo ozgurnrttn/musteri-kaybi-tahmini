@@ -1,0 +1,107 @@
+########## 1. VERI ##########
+satir: 7043  tekil musteri: 7043  yinelenen: 0
+sutun: 21
+TotalCharges eksik: 11
+eksik olanlarin tenure degerleri: [0]
+kayip orani: 0.2654
+kalan: 5174  ayrilan: 1869
+
+--- Sozlesme turune gore ---
+                musteri  oran
+Contract                     
+Month-to-month     3875  42.7
+One year           1473  11.3
+Two year           1695   2.8
+
+--- Internet hizmetine gore ---
+                 musteri  oran
+InternetService               
+DSL                 2421  19.0
+Fiber optic         3096  41.9
+No                  1526   7.4
+
+--- Odeme yontemine gore ---
+                           musteri  oran
+PaymentMethod                           
+Electronic check              2365  45.3
+Mailed check                  1612  19.1
+Bank transfer (automatic)     1544  16.7
+Credit card (automatic)       1522  15.2
+
+--- Kidem dilimlerine gore ---
+          musteri  oran
+tenure                 
+0-6 ay       1481  52.9
+7-12 ay       705  35.9
+13-24 ay     1024  28.7
+25-48 ay     1594  20.4
+49-72 ay     2239   9.5
+
+--- Teknik destek ---
+                     musteri  oran
+TechSupport                       
+No                      3473  41.6
+No internet service     1526   7.4
+Yes                     2044  15.2
+
+sayisal degisken: ['SeniorCitizen', 'tenure', 'MonthlyCharges', 'TotalCharges']
+kategorik degisken sayisi: 15
+egitim: 5634  test: 1409  test kayip orani: 0.2654
+
+########## 2. MODELLER ##########
+Model                     Acc Precision   Recall       F1  ROC-AUC   PR-AUC    Brier
+Lojistik regresyon     0.7381   0.5043   0.7834   0.6136   0.8413   0.6326   0.1688
+Rastgele orman         0.7594   0.5336   0.7433   0.6212   0.8368   0.6405   0.1581
+Extra Trees            0.7573   0.5321   0.7086   0.6078   0.8263   0.6262   0.1607
+
+en yuksek ROC-AUC: Lojistik regresyon
+karisiklik matrisi (satir=gercek, sutun=tahmin):
+ [[747 288]
+ [ 81 293]]
+taban oran (cogunluk sinifi): 0.7346
+
+--- Esik taramasi (Lojistik regresyon) ---
+  esik      acc duyarlilik   kesinlik       F1   hedeflenen
+   0.3   0.6529     0.9278     0.4289   0.5866          809
+   0.4   0.7012     0.8663     0.4662   0.6062          695
+   0.5   0.7381     0.7834     0.5043   0.6136          581
+   0.6   0.7622     0.7059     0.5399   0.6118          489
+   0.7   0.7892     0.6016     0.6032   0.6024          373
+
+--- Risk dilimlerinde gercek kayip orani (lift) ---
+  ilk %5   ( 70 musteri): kayip orani 0.757  yakalanan  53 / 374  (%14.2)  lift 2.85x
+  ilk %10  (140 musteri): kayip orani 0.757  yakalanan 106 / 374  (%28.3)  lift 2.85x
+  ilk %20  (281 musteri): kayip orani 0.658  yakalanan 185 / 374  (%49.5)  lift 2.48x
+  ilk %30  (422 musteri): kayip orani 0.576  yakalanan 243 / 374  (%65.0)  lift 2.17x
+  ilk %50  (704 musteri): kayip orani 0.463  yakalanan 326 / 374  (%87.2)  lift 1.74x
+
+--- Permutation importance (ROC-AUC dususu, ilk 10) ---
+       degisken   etki     sd
+         tenure 0.1515 0.0043
+InternetService 0.0431 0.0088
+       Contract 0.0402 0.0039
+ MonthlyCharges 0.0376 0.0062
+   TotalCharges 0.0104 0.0025
+StreamingMovies 0.0046 0.0019
+    StreamingTV 0.0045 0.0025
+ OnlineSecurity 0.0044 0.0015
+    TechSupport 0.0039 0.0009
+  PaymentMethod 0.0037 0.0016
+
+--- Lojistik regresyon: en guclu 8 pozitif ve 8 negatif katsayi (odds orani) ---
+  InternetService_Fiber optic                           +0.705   OR= 2.02
+  Contract_Month-to-month                               +0.663   OR= 1.94
+  TotalCharges                                          +0.457   OR= 1.58
+  StreamingMovies_Yes                                   +0.275   OR= 1.32
+  StreamingTV_Yes                                       +0.262   OR= 1.30
+  PaymentMethod_Electronic check                        +0.239   OR= 1.27
+  OnlineSecurity_No                                     +0.198   OR= 1.22
+  TechSupport_No                                        +0.164   OR= 1.18
+  tenure                                                -1.124   OR= 0.33
+  Contract_Two year                                     -0.781   OR= 0.46
+  MonthlyCharges                                        -0.664   OR= 0.52
+  InternetService_DSL                                   -0.621   OR= 0.54
+  InternetService_No                                    -0.275   OR= 0.76
+  OnlineSecurity_No internet service                    -0.275   OR= 0.76
+  OnlineBackup_No internet service                      -0.275   OR= 0.76
+  DeviceProtection_No internet service                  -0.275   OR= 0.76
